@@ -11,4 +11,4 @@ test:
 
 .PHONY: run
 run:
-	go run ./cmd/main 123.45 USD
+	go run ./cmd/main 123.45 USD BTC

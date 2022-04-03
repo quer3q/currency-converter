@@ -1,4 +1,4 @@
-package main
+package args
 
 import (
 	"fmt"
@@ -12,13 +12,13 @@ const (
 	requiredArgsLength = 3 // like '123.45 USD BTC'
 )
 
-type args struct {
-	amount  string
-	symbol  string
-	convert string
+type Args struct {
+	Amount  string
+	Symbol  string
+	Convert string
 }
 
-func parseArgs(in []string) (*args, error) {
+func ParseArgs(in []string) (*Args, error) {
 	if len(in) < requiredArgsLength {
 		return nil, errors.Errorf("invalid arguments length: %d", len(in))
 	}
@@ -29,14 +29,14 @@ func parseArgs(in []string) (*args, error) {
 		return nil, errors.Wrapf(err, "can't parse amount to float: %s", amount)
 	}
 
-	return &args{
-		amount:  amount,
-		symbol:  in[1],
-		convert: in[2],
+	return &Args{
+		Amount:  amount,
+		Symbol:  in[1],
+		Convert: in[2],
 	}, nil
 }
 
-func printHelp() {
+func PrintHelp() {
 	_, _ = fmt.Fprintf(os.Stderr, "Usage of %s\n"+
 		"Example:\n"+
 		"./currency-converter 123.45 USD BTC\n"+

@@ -1,9 +1,11 @@
-package main
+package coinmarket
 
 import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/quer3q/currency-converter/cmd/main/args"
 
 	"github.com/pkg/errors"
 )
@@ -13,16 +15,16 @@ const (
 	sandboxAPIKey      = "b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c"
 )
 
-func sendRequest(a *args) (int, []byte, error) {
+func sendRequest(a *args.Args) (int, []byte, error) {
 	req, err := http.NewRequest("GET", priceConversionURL, nil)
 	if err != nil {
 		return 0, nil, err
 	}
 
 	q := url.Values{}
-	q.Add("amount", a.amount)
-	q.Add("symbol", a.symbol)
-	q.Add("convert", a.convert)
+	q.Add("amount", a.Amount)
+	q.Add("symbol", a.Symbol)
+	q.Add("convert", a.Convert)
 
 	req.Header.Set("Accepts", "application/json")
 	req.Header.Add("X-CMC_PRO_API_KEY", sandboxAPIKey)
